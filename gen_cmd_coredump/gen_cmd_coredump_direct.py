@@ -2,12 +2,12 @@
 # author: Kyle Kim (kkim@qti.qualcomm.com)
 # date: 2016/09/30
 
-import os
-import sys
 import argparse
-import subprocess
+import os
 import re
-
+#import subprocess
+import sys
+         
 def error_exit(message, code=1):
     sys.stderr.write("Error:\n{}".format(str(message)))
     sys.exit(code)
@@ -19,10 +19,10 @@ def generate_t32cmd(cfg):
     else:
         findstr = "pc|lr|sp|ip|fp|psr|r\d{1,2}|[a-fA-F0-9]{8}"
         
-    print "input kmsg: (type 'end' to finish it)"
+    print("input kmsg: (type 'end' to finish it)")
     contents = []
     while True:
-        line = raw_input("")
+        line = input("")
         if line == "end":
             break
         contents.append(line)
@@ -56,9 +56,7 @@ def generate_t32cmd(cfg):
 
     print(gen_t32cmd)
     with open(cfg.source_kmsg + ".cmm", "w") as output:
-        output.write(gen_t32cmd)
-
-					             
+        output.write(gen_t32cmd)         
         
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='''DESCRIPTION:
@@ -78,7 +76,7 @@ if __name__ == '__main__':
     parser.add_argument('--type', '-t',
                         help='kernel 32bit or 64bit?',
                         default='64')
-						
+
     config = parser.parse_args(sys.argv[1:])
 
     try:
